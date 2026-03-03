@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+// =============================================
+// VARIABLES - TEMA BELLEZA (DARK MODE)
+// =============================================
+:root {
+  // Colores principales
+  --color-bg:          #0f0f13;
+  --color-surface:     #1a1a24;
+  --color-surface-2:   #22223a;
+  --color-border:      #2e2e45;
+
+  // Marca - Tonos rosados/dorados para belleza
+  --color-primary:     #e8a0bf;
+  --color-primary-dark:#c9748f;
+  --color-accent:      #f0c060;
+  --color-accent-dark: #c99a3a;
+
+  // Texto
+  --color-text:        #f0eaf4;
+  --color-text-muted:  #9e90b0;
+  --color-text-soft:   #c8b8d8;
+
+  // Estados
+  --color-success:     #6fcf97;
+  --color-danger:      #eb5757;
+
+  // Espaciado
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-full: 999px;
+
+  // Sombras
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 20px rgba(232,160,191,0.2);
+}
+
+// =============================================
+// RESET & BASE
+// =============================================
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+// =============================================
+// UTILIDADES
+// =============================================
+.badge-oferta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: #1a1a24;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #1a1a24;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.03em;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  &.in-cart {
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+}
