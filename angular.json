@@ -44,7 +44,14 @@
                   "maximumError": "20kB"
                 }
               ],
-              "outputHashing": "all"
+              "baseHref": "/angie-tienda/",
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             },
             "development": {
               "optimization": false,
@@ -86,7 +93,11 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/angie-tienda/",
+            "repo": "https://github.com/LuisEstepa/angie-tienda.git"
+          }
         }
       }
     }
