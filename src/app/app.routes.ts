@@ -1,6 +1,7 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -36,12 +37,37 @@ export const routes: Routes = [
   {
     path: 'checkout',
     loadComponent: () =>
-      import('./features/checkout/checkout/checkout')
-        .then(m => m.Checkout),
+      import('./features/checkout/checkout/checkout').then(m => m.Checkout),
     canActivate: [authGuard]  // Proteger con autenticación
   },
+  // ── Admin ──
   {
-    path: '**',
-    redirectTo: ''
+    path: 'admin',
+    canActivate: [adminGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/admin/dashboard/dashboard').then(m => m.Dashboard)
+      },
+      {
+        path: 'productos/nuevo',
+        loadComponent: () => import('./features/admin/products/product-form/product-form').then(m => m.ProductForm)
+      },
+      {
+        path: 'productos/editar/:id',
+        loadComponent: () => import('./features/admin/products/product-form/product-form').then(m => m.ProductForm)
+      },
+      {
+        path: 'categorias/nueva',
+        loadComponent: () => import('./features/admin/categories/category-form/category-form').then(m => m.CategoryForm)
+      },
+      {
+        path: 'categorias/editar/:id',
+        loadComponent: () => import('./features/admin/categories/category-form/category-form').then(m => m.CategoryForm)
+      },
+    ]
+  },
+  { path: '**',
+    redirectTo: '' 
   }
 ];

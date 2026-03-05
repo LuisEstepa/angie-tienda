@@ -6,29 +6,34 @@ import { User, LoginRequest, RegisterRequest } from '../models/user.model';
 export class AuthService {
 
   private _user = signal<User | null>(this.loadUser());
-  
+
   isLoggedIn = computed(() => this._user() !== null);
+  isAdmin    = computed(() => this._user()?.role === 'admin');
   currentUser = this._user.asReadonly();
 
   constructor(private router: Router) {}
 
   login(data: LoginRequest): Promise<void> {
-    // Simula llamada a API — reemplaza con HttpClient real
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (data.email && data.password.length >= 6) {
-          const user: User = {
-            id: 1,
-            name: data.email.split('@')[0],
-            email: data.email,
-            avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${data.email}`
-          };
-          this._user.set(user);
-          localStorage.setItem('user', JSON.stringify(user));
-          resolve();
-        } else {
-          reject('Credenciales incorrectas');
+        if (!data.email || data.password.length < 6) {
+          reject('Credenciales incorrectas'); return;
         }
+
+        // Usuarios admin de prueba
+        const admins = ['admin@glowshop.com', 'manager@glowshop.com'];
+        const role = admins.includes(data.email) ? 'admin' : 'customer';
+
+        const user: User = {
+          id: 1,
+          name: data.email.split('@')[0],
+          email: data.email,
+          role,
+          avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${data.email}`
+        };
+        this._user.set(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        resolve();
       }, 800);
     });
   }
@@ -37,13 +42,13 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (data.password !== data.confirmPassword) {
-          reject('Las contraseñas no coinciden');
-          return;
+          reject('Las contraseñas no coinciden'); return;
         }
         const user: User = {
           id: Date.now(),
           name: data.name,
           email: data.email,
+          role: 'customer',
           avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${data.email}`
         };
         this._user.set(user);

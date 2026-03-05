@@ -1,0 +1,11 @@
+.btn-admin {
+  background: rgba(240,192,96,0.12);
+  border: 1px solid rgba(240,192,96,0.3);
+  color: var(--color-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  transition: all 0.2s;
+  &:hover { background: rgba(240,192,96,0.2); }
+}

@@ -41,6 +41,7 @@ import { AuthService } from '../../../core/services/auth.service';  // ← .serv
           <!-- Con sesión -->
           <ng-container *ngIf="auth.isLoggedIn()">
             <span class="user-greeting">Hola, {{ auth.currentUser()?.name }} 👋</span>
+            <a routerLink="/admin" *ngIf="auth.isAdmin()" class="btn-admin">⚙️ Admin</a>
             <button class="btn-logout" (click)="auth.logout()">Salir</button>
           </ng-container>
 

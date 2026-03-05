@@ -182,9 +182,12 @@ export class ProductService {
 
   getCategories(): Observable<Category[]> {
     return of([
-      { id: 1, name: 'Calzado', slug: 'calzado', icon: '👟' },
-      { id: 2, name: 'Ropa', slug: 'ropa', icon: '👕' },
-      { id: 3, name: 'Accesorios', slug: 'accesorios', icon: '🎒' },
+      { id: 1, name: 'maquillaje', slug: 'maquillaje', icon: '💄' },
+      { id: 2, name: 'skincare', slug: 'skincare', icon: '✨' },
+      { id: 3, name: 'fragancias', slug: 'fragancias', icon: '🌸' },
+      { id: 4, name: 'cabello', slug: 'cabello', icon: '💇' },
+      { id: 5, name: 'uñas', slug: 'uñas', icon: '💅' },
+      { id: 6, name: 'herramientas', slug: 'herramientas', icon: '🪄' },
     ]);
   }
 
@@ -194,5 +197,18 @@ export class ProductService {
       p.description.toLowerCase().includes(query.toLowerCase())
     );
     return of(results);
+  }
+  addProduct(product: Product): void {
+  const newProduct = { ...product, id: Date.now() };
+  this.mockProducts.push(newProduct);
+  }
+
+  updateProduct(product: Product): void {
+    const index = this.mockProducts.findIndex(p => p.id === product.id);
+    if (index !== -1) this.mockProducts[index] = product;
+  }
+
+  deleteProduct(id: number): void {
+    this.mockProducts = this.mockProducts.filter(p => p.id !== id);
   }
 }
